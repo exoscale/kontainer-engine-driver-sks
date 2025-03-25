@@ -1,0 +1,327 @@
+<section class="horizontal-form">
+  {{#accordion-list showExpandAll=false as |al expandFn|}}
+    {{#if (eq step 1)}}
+      {{#accordion-list-item
+        title=accessConfigTitle
+        detail=accessConfigDetail
+        expandAll=expandAll
+        expand=(action expandFn)
+        expandOnInit=true
+      }}
+        <div class="row">
+          <div class="col span-12">
+            <label class="acc-label">
+              {{t "clusterNew.exoscalesks.apikey.label"}}
+              {{field-required}}
+            </label>
+            {{#input-or-display
+              editable=true
+              value=cluster.%%DRIVERNAME%%EngineConfig.apikey
+            }}
+              {{input
+                name="apikey"
+                classNames="form-control"
+                placeholder=(t "clusterNew.exoscalesks.apikey.placeholder")
+                value=cluster.%%DRIVERNAME%%EngineConfig.apikey
+              }}
+            {{/input-or-display}}
+          </div>
+          <div class="col span-12">
+            <label class="acc-label">
+              {{t "clusterNew.exoscalesks.apisecret.label"}}
+              {{field-required}}
+            </label>
+            {{#input-or-display
+              editable=true
+              value=cluster.%%DRIVERNAME%%EngineConfig.apisecret
+            }}
+              {{input
+                type="password"
+                name="apisecret"
+                classNames="form-control"
+                placeholder=(t "clusterNew.exoscalesks.apisecret.placeholder")
+                value=cluster.%%DRIVERNAME%%EngineConfig.apisecret
+              }}
+            {{/input-or-display}}
+          </div>
+        </div>
+      {{/accordion-list-item}}
+      {{top-errors errors=errors}}
+      {{save-cancel
+        btnLabel="clusterNew.exoscalesks.accessConfig.next"
+        savingLabel="clusterNew.exoscalesks.accessConfig.loading"
+        save="verifyAccessKeys"
+        cancel=close
+      }}
+    {{else if (eq step 2)}}
+      {{#accordion-list-item
+        title=clusterConfigTitle
+        detail=clusterConfigDetail
+        expandAll=expandAll
+        expand=(action expandFn)
+        expandOnInit=true
+      }}
+        {{#if (eq mode "new")}}
+          <div class="row">
+            <div class="col span-6">
+              <label class="acc-label">
+                {{t "clusterNew.exoscalesks.zone.label"}}
+                {{field-required}}
+              </label>
+              {{#input-or-display
+                editable=true
+                value=cluster.%%DRIVERNAME%%EngineConfig.zone
+              }}
+                {{new-select
+                  class="form-control"
+                  content=zoneChoises
+                  value=cluster.%%DRIVERNAME%%EngineConfig.zone
+                }}
+              {{/input-or-display}}
+            </div>
+            <div class="col span-6">
+              <label class="acc-label">
+                {{t "clusterNew.exoscalesks.kubernetesVersion.label"}}
+                {{field-required}}
+              </label>
+              {{#input-or-display
+                editable=true
+                value=cluster.%%DRIVERNAME%%EngineConfig.kubernetesVersion
+              }}
+                {{new-select
+                  class="form-control"
+                  content=k8sVersionChoises
+                  value=cluster.%%DRIVERNAME%%EngineConfig.kubernetesVersion
+                }}
+              {{/input-or-display}}
+            </div>
+          </div>
+        {{/if}}
+        <div class="row">
+          <div class="col span-6">
+            <label class="acc-label">
+              {{t "clusterNew.exoscalesks.level.label"}}
+              {{field-required}}
+            </label>
+            {{#input-or-display
+              editable=true
+              value=cluster.%%DRIVERNAME%%EngineConfig.level
+            }}
+              {{new-select
+                class="form-control"
+                content=levelChoises
+                value=cluster.%%DRIVERNAME%%EngineConfig.level
+              }}
+            {{/input-or-display}}
+          </div>
+
+          {{!-- TODO(pej) ADD TAINTS HERE --}}
+
+          {{!-- <div class="header mt-20 clearfix">
+            <div class="pull-left">
+              <h2 class="mb-0">
+                {{t "clusterNew.exoscalesks.labels.label"}}
+              </h2>
+            </div>
+          </div>
+          <div class="col span-5">
+            <label class="acc-label">
+              {{t "clusterNew.exoscalesks.labels.newLabel"}}
+            </label>
+            {{#input-or-display editable=true value=newLabel}}
+              {{input
+                type="text"
+                name="labels"
+                classNames="form-control"
+                placeholder=(t "clusterNew.exoscalesks.labels.placeholder")
+                value=newLabel
+              }}
+            {{/input-or-display}}
+          </div>
+          <div class="col span-1">
+            <button class="btn bg-primary btn-sm mt-30" {{action "addNewLabel"}}>
+              <i class="icon icon-plus"></i>
+            </button>
+          </div>
+          <div class="col span-6">
+            <div class="sks-labels">
+              {{#each cluster.%%DRIVERNAME%%EngineConfig.labels as |label labelIdx|}}
+                <!--     single label start -->
+                <div class="sks-label bg-primary">
+                  <span>
+                    {{label}}
+                  </span>
+                  <button
+                    class="sks-delete bg-error"
+                    {{action "deleteLabel" labelIdx}}
+                  >
+                    <i class="icon icon-trash"></i>
+                  </button>
+                </div>
+                <!--     single label end  -->
+              {{else}}
+                No labels added
+              {{/each}}
+            </div>
+          </div> --}}
+        </div>
+      {{/accordion-list-item}}
+      {{top-errors errors=errors}}
+      {{save-cancel
+        btnLabel="clusterNew.exoscalesks.clusterConfig.next"
+        savingLabel="clusterNew.exoscalesks.clusterConfig.loading"
+        save="verifyClusterConfig"
+        cancel=close
+      }}
+    {{else if (eq step 3)}}
+      {{#accordion-list-item
+        title=nodePoolConfigTitle
+        detail=nodePoolConfigDetail
+        expandAll=expandAll
+        expand=(action expandFn)
+        expandOnInit=true
+      }}
+        {{! select node pool }}
+        <div class="row">
+          <div class="col span-4">
+            <label class="acc-label">
+              {{t "clusterNew.exoscalesks.selectedNodePoolType.label"}}
+            </label>
+            {{#input-or-display editable=true value=selectedNodePoolType}}
+              {{new-select
+                class="form-control"
+                content=nodePoolChoises
+                value=selectedNodePoolType
+              }}
+            {{/input-or-display}}
+          </div>
+          <div class="col span-1">
+            <div class="acc-label">
+              Disk Size:
+            </div>
+            <Input
+              @type="number"
+              @min="50"
+              @value={{this.selectedNodePoolObj.diskSize}}
+            />
+          </div>
+          <div class="col span-1">
+            <div class="acc-label">
+              Size:
+            </div>
+            <Input
+              @type="number"
+              @min="1"
+              @value={{this.selectedNodePoolObj.size}}
+            />
+          </div>
+          <div class="col span-1">
+            <div class="acc-label pb-10">
+              Actions
+            </div>
+            <button
+              class="btn bg-primary icon-btn p-0"
+              {{action "addSelectedNodePool"}}
+            >
+              <span class="darken">
+                <i class="icon icon-plus text-small"></i>
+              </span>
+              <span>
+                Add Node Pool
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="ember-view">
+          <div class="header mt-20 clearfix">
+            <div class="pull-left">
+              <h2 class="mb-0">
+                {{t "clusterNew.exoscalesks.nodePools.label"}}
+              </h2>
+            </div>
+          </div>
+          <div class="grid sortable-table ember-view">
+            <table class="fixed grid sortable-table">
+              <thead>
+                <tr class="fixed-header">
+                  <th lass="sortable ember-view" role="columnheader">
+                    <a class="btn bg-transparent">
+                      Label
+                    </a>
+                  </th>
+                  <th lass="sortable ember-view" role="columnheader">
+                    <a class="btn bg-transparent">
+                      Disk Size
+                    </a>
+                  </th>
+                  <th lass="sortable ember-view" role="columnheader">
+                    <a class="btn bg-transparent">
+                      Size
+                    </a>
+                  </th>
+                  <th lass="sortable ember-view" role="columnheader">
+                    <a class="btn bg-transparent"></a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each this.selectedNodePoolList as |selectedNodePool|}}
+                  <tr class="main-row ember-view">
+                    <td>
+                      {{selectedNodePool.label}}
+                    </td>
+                    <td>
+                       <Input
+                        @type="number"
+                        @min="50"
+                        @value={{selectedNodePool.diskSize}}
+                      />
+                    </td>
+                    <td>
+                      <Input
+                        @type="number"
+                        @min="1"
+                        @value={{selectedNodePool.size}}
+                      />
+                    </td>
+                    <td class="text-center">
+                      <button
+                        class="btn bg-error btn-sm"
+                        {{action "deleteNodePool" selectedNodePool.id}}
+                      >
+                        <i class="icon icon-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                {{else}}
+                  <tr class="main-row ember-view">
+                    <td colspan="8" class="p-10 text-center">
+                      {{t "clusterNew.exoscalesks.nodePools.empty"}}
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {{! show selected node pools end }}
+      {{/accordion-list-item}}
+      {{top-errors errors=errors}}
+      {{#if (eq mode "edit")}}
+        {{save-cancel
+          btnLabel="clusterNew.exoscalesks.nodePoolConfig.update"
+          savingLabel="clusterNew.exoscalesks.nodePoolConfig.loading"
+          save="updateCluster"
+          cancel=close
+        }}
+      {{else}}
+        {{save-cancel
+          btnLabel="clusterNew.exoscalesks.nodePoolConfig.next"
+          savingLabel="clusterNew.exoscalesks.nodePoolConfig.loading"
+          save="createCluster"
+          cancel=close
+        }}
+      {{/if}}
+    {{/if}}
+  {{/accordion-list}}
+</section>

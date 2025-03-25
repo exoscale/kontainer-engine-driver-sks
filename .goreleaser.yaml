@@ -1,0 +1,31 @@
+builds:
+- id: kontainer-engine-driver-sks
+  binary: kontainer-engine-driver-sks-linux-amd64
+  env:
+  - CGO_ENABLED=0
+  - GO_PKG=github.com/exoscale/kontainer-engine-driver-sks
+  flags:
+  - -mod=vendor
+  - -trimpath
+  ldflags:
+  - -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{.Date}}
+  goos:
+  - linux
+  goarch:
+  - amd64
+
+signs:
+- cmd: gpg
+  args: ["--default-key", "7100E8BFD6199CE0374CB7F003686F8CDE378D41", "--detach-sign", "${artifact}"]
+  artifacts: all
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ .Tag }}-snapshot"
+
+release:
+  github:
+    owner: exoscale
+    name: kontainer-engine-driver-sks

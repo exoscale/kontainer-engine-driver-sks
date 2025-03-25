@@ -1,0 +1,20 @@
+name: "Build"
+description: "Build"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - run: make go.mk
+      shell: bash
+    - uses: ./go.mk/.github/actions/setup
+
+    - uses: ./go.mk/.github/actions/pre-check
+
+    - run: make build
+      shell: bash
+
+    - run: make test-verbose
+      shell: bash
