@@ -26,6 +26,6 @@
   font-size: 14px;
 } */
 
-.machine-driver.exoscale {
-  background-image: url("exoscale.svg");
+.machine-driver.sks {
+  background-image: url("sks.svg");
 }
