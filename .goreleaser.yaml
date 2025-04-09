@@ -14,6 +14,11 @@ builds:
   goarch:
   - amd64
 
+archives:
+- format: binary
+  files:
+  - kontainer-engine-driver-sks-linux-amd64
+
 signs:
 - cmd: gpg
   args: ["--default-key", "7100E8BFD6199CE0374CB7F003686F8CDE378D41", "--detach-sign", "${artifact}"]
