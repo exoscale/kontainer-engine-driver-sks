@@ -5,7 +5,7 @@ Rancher Cluster Driver UI for the [Exoscale Scalable Kubernetes Service](https:/
 ## Ready to use
 
 This project is deployed under this Repository Github pages:
-[TODO](todo.sh)
+[exoscale.github.io/kontainer-engine-driver-sks/component.js](https://exoscale.github.io/kontainer-engine-driver-sks/component.js)
 
 It serves the necessary files
 
