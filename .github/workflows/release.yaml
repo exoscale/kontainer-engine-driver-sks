@@ -39,5 +39,3 @@ jobs:
       - uses: ./go.mk/.github/actions/release
         with:
           release_github_token: ${{ secrets.GITHUB_TOKEN }}
-          registry_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
