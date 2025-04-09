@@ -23,7 +23,7 @@ jobs:
 
       - name: Build project
         run: |
-          cd ui && npm run build -- --name=exoscale
+          cd ui && npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

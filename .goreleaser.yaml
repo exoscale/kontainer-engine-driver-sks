@@ -1,6 +1,6 @@
 builds:
 - id: kontainer-engine-driver-sks
-  binary: kontainer-engine-driver-sks-linux-amd64
+  binary: kontainer-engine-driver-sks
   env:
   - CGO_ENABLED=0
   - GO_PKG=github.com/exoscale/kontainer-engine-driver-sks
@@ -17,7 +17,7 @@ builds:
 archives:
 - format: binary
   files:
-  - kontainer-engine-driver-sks-linux-amd64
+  - kontainer-engine-driver-sks
 
 signs:
 - cmd: gpg
