@@ -4,4 +4,4 @@
 
 ### Features
 
-* Initial CSI driver version
+* Initial Cluster driver version
