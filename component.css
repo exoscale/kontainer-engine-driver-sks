@@ -1,0 +1,31 @@
+/* CSS for Exoscale for Taint
+
+.sks-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  height: 30px;
+}
+.sks-label span {
+  padding: 4px 10px;
+}
+.sks-label .sks-delete {
+  border: none;
+  color: #fff;
+  box-shadow: none;
+  cursor: pointer;
+  height: 30px;
+  border-radius: 0 4px 4px 0;
+  padding: 0 10px;
+}
+.sks-label .sks-delete i.icon {
+  font-size: 14px;
+} */
+
+.machine-driver.exoscale {
+  background-image: url("exoscale.svg");
+}
