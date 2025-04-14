@@ -319,6 +319,11 @@ func (d *Driver) Update(ctx context.Context, info *types.ClusterInfo, opts *type
 		}
 
 		state.Level = string(v3.SKSClusterLevelPro)
+
+		if err := waitClusterAfterAnUpgrade(ctx, client, clusterID); err != nil {
+			return nil, err
+		}
+
 	}
 
 	return info, storeState(info, state)

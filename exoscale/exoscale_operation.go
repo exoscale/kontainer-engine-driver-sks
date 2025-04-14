@@ -285,3 +285,42 @@ func generateServiceAccountTokenForSKS(config *rest.Config) (string, error) {
 
 	return result, nil
 }
+
+func waitClusterAfterAnUpgrade(ctx context.Context, client *v3.Client, clusterID v3.UUID) error {
+	timeout := 10 * time.Minute
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+
+	timeoutChan := time.After(timeout)
+	for {
+		select {
+		case <-timeoutChan:
+			return fmt.Errorf("timeout waiting for nodepool to reach running status")
+		case <-ticker.C:
+			sksCluster, err := client.GetSKSCluster(ctx, clusterID)
+			if err != nil {
+				return fmt.Errorf("failed to get SKS cluster during polling: %w", err)
+			}
+
+			allRunning := true
+			for _, pool := range sksCluster.Nodepools {
+				nodepool, err := client.GetSKSNodepool(ctx, clusterID, pool.ID)
+				if err != nil {
+					return fmt.Errorf("failed to get SKS nodepool %s: %w", pool.ID, err)
+				}
+
+				if nodepool.State != v3.SKSNodepoolStateRunning {
+					allRunning = false
+					break
+				}
+			}
+
+			if allRunning {
+				logrus.Infof("All nodepools are in running state for cluster %s", sksCluster.Name)
+				return nil
+			}
+
+			logrus.Infof("Waiting for nodepools to reach running state for cluster %s", sksCluster.Name)
+		}
+	}
+}
