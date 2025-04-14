@@ -39,5 +39,5 @@ export EXOSCALE_API_SECRET=xxxx...
 Run the following command to run the integration test suite:
 
 ```bash
-make test
+go test -race -cover -timeout 15m ./...
 ```
