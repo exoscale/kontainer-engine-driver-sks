@@ -10,7 +10,7 @@ This project is deployed under this Repository Github pages:
 It serves the necessary files
 
 You can use this ui link directly to the Exoscale cluster driver setup.
-Do not forget to whitelist `*.github.io` in the rancher UI Cluster Driver setup.
+Do not forget to whitelist `*.github.io` and `*.exoscale.com` in the rancher UI Cluster Driver setup.
 
 ## Development
 
