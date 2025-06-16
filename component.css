@@ -26,6 +26,6 @@
   font-size: 14px;
 } */
 
-.machine-driver.sks {
-  background-image: url("sks.svg");
+.machine-driver.@exoscale/ui-cluster-driver-sks {
+  background-image: url("@exoscale/ui-cluster-driver-sks.svg");
 }
