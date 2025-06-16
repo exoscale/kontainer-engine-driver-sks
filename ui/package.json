@@ -1,5 +1,5 @@
 {
-  "name": "ui-cluster-driver-sks",
+  "name": "@exoscale/ui-cluster-driver-sks",
   "version": "0.0.1",
   "description": "Exoscale Rancher UI driver for SKS",
   "repository": {
