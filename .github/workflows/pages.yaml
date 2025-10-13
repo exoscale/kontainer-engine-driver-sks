@@ -23,7 +23,7 @@ jobs:
 
       - name: Build project
         run: |
-          cd ui && npm run build
+          cd ui && npm run build -- --name=sks
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
