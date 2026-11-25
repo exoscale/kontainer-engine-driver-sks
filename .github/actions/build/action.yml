@@ -12,6 +12,7 @@ runs:
     - uses: actions/setup-go@v7.0.0
 
     - run: make pre-check
+      shell: bash
 
     - run: make build
       shell: bash
